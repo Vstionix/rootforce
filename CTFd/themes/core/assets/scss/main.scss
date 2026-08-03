@@ -1,0 +1,73 @@
+/* RootForce CTF — Bootstrap configuration */
+@use "bootstrap/scss/bootstrap" as * with (
+  $primary:    #2979ff,
+  $secondary:  #3949ab,
+  $info:       #5b97ff,
+  $success:    #00c853,
+  $dark:       #080c14,
+  $body-bg:    #000000,
+  $body-color: #e8eaf6,
+  $link-color: #5b97ff,
+  $border-color: rgba(41,121,255,0.25)
+);
+
+/* Component SCSS */
+@use "includes/components/table";
+@use "includes/components/jumbotron";
+@use "includes/components/challenge";
+@use "includes/components/sticky-footer";
+@use "includes/components/graphs";
+
+/* Utils */
+@use "includes/utils/fonts";
+@use "includes/utils/opacity";
+@use "includes/utils/min-height";
+@use "includes/utils/cursors";
+@use "includes/utils/lolight";
+
+/* Icons */
+@use "includes/icons/award-icons";
+@use "includes/icons/flag-icons";
+
+/* RootForce brand styles */
+@use "includes/rootforce";
+
+/* ── Global base ── */
+h1, h2 {
+  font-weight: 600;
+  letter-spacing: 2px;
+}
+
+a {
+  text-decoration: none !important;
+}
+
+blockquote {
+  border-left: 4px solid rgba(41,121,255,0.5);
+  padding-left: 15px;
+}
+
+input,
+select {
+  padding: 0.6rem !important;
+  height: auto !important;
+}
+
+.fa-spin.spinner {
+  text-align: center;
+  opacity: 0.5;
+}
+
+.badge-notification {
+  vertical-align: top;
+  margin-left: -1.5em;
+  font-size: 50%;
+}
+
+.form-select {
+  background-color: rgba(10, 16, 30, 0.9) !important;
+  border-color: rgba(41,121,255,0.3) !important;
+  color: #e8eaf6 !important;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3e%3cpath fill='%235b97ff' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e");
+  background-size: 8px 10px;
+}

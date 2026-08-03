@@ -1,0 +1,105 @@
+services:
+  ctfd:
+    build: .
+    restart: always
+    ports:
+      - "8000:8000"
+    environment:
+      - UPLOAD_FOLDER=/var/uploads
+      - DATABASE_URL=mysql+pymysql://ctfd:ctfd@db/ctfd
+      - REDIS_URL=redis://cache:6379
+      - SECRET_KEY=ctfd_secret_key_default_change_me
+      - WORKERS=4
+      - WORKER_CLASS=gevent
+      - SQLALCHEMY_POOL_SIZE=20
+      - SQLALCHEMY_MAX_OVERFLOW=20
+      - LOG_FOLDER=/var/log/CTFd
+      - ACCESS_LOG=-
+      - ERROR_LOG=-
+      - REVERSE_PROXY=true
+    volumes:
+      - ./CTFd/themes:/opt/CTFd/CTFd/themes
+      - ctfd_logs:/var/log/CTFd
+      - ctfd_uploads:/var/uploads
+    depends_on:
+      permissions:
+        condition: service_completed_successfully
+      db:
+        condition: service_started
+      cache:
+        condition: service_started
+    networks:
+        default:
+        internal:
+
+  permissions:
+    image: alpine:3.23
+    user: root
+    volumes:
+      - ctfd_logs:/var/log/CTFd
+      - ctfd_uploads:/var/uploads
+    command: chown -R 1001:1001 /var/uploads /var/log/CTFd
+
+  nginx:
+    build: ./conf/nginx
+    restart: always
+    ports:
+      - 80:80
+    depends_on:
+      - ctfd
+
+  db:
+    image: mariadb:10.11
+    restart: always
+    environment:
+      - MARIADB_ROOT_PASSWORD=ctfd
+      - MARIADB_USER=ctfd
+      - MARIADB_PASSWORD=ctfd
+      - MARIADB_DATABASE=ctfd
+      - MARIADB_AUTO_UPGRADE=1
+    volumes:
+      - ctfd_db:/var/lib/mysql
+    networks:
+        internal:
+    # This command is required to set important mariadb defaults and performance optimizations
+    command: [
+      mysqld,
+      --character-set-server=utf8mb4,
+      --collation-server=utf8mb4_unicode_ci,
+      --wait_timeout=28800,
+      --log-warnings=0,
+      --skip-name-resolve,
+      --innodb_flush_log_at_trx_commit=2,
+      --innodb_buffer_pool_size=256M,
+      --max_connections=500
+    ]
+
+  cache:
+    image: redis:4
+    restart: always
+    volumes:
+      - ctfd_redis:/data
+    networks:
+        internal:
+
+  tunnel:
+    image: cloudflare/cloudflared:latest
+    restart: always
+    environment:
+      - TUNNEL_TOKEN=${TUNNEL_TOKEN:-PASTE_YOUR_CLOUDFLARE_TOKEN_HERE}
+    command: tunnel --no-autoupdate run
+    depends_on:
+      - nginx
+
+volumes:
+  ctfd_logs:
+  ctfd_uploads:
+  ctfd_db:
+  ctfd_redis:
+
+networks:
+    default:
+    internal:
+        internal: true
+
+

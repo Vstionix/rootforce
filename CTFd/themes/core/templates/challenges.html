@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="jumbotron">
+    <div class="container">
+      <h1 class="d-flex align-items-center">
+        <i class="fas fa-flag text-primary me-3" style="font-size: 1.8rem;"></i>{% trans %}Challenges{% endtrans %}
+        <span class="rf-live-badge ms-3" style="font-size: 0.72rem;"><span class="rf-live-dot"></span>ACTIVE COMPETITION</span>
+      </h1>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        {% include "components/errors.html" %}
+      </div>
+    </div>
+
+    <div
+      x-data="ChallengeBoard"
+      @load-challenges.window="loadChallenges()"
+      @load-challenge.window="loadChallenge($event.detail)"
+    >
+      <div
+          x-ref="challengeWindow" id="challenge-window" class="modal fade" tabindex="-1" role="dialog" x-data=""
+          x-html="$store.challenge.data.view"
+      ></div>
+
+      <div x-show="!loaded">
+        <div class="min-vh-50 d-flex align-items-center">
+          <div class="text-center w-100 text-muted">
+            <i class="fas fa-circle-notch fa-spin fa-2x text-primary mb-3 d-block"></i>
+            <span>Loading challenges...</span>
+          </div>
+        </div>
+      </div>
+
+      <div x-show="loaded">
+        <template x-for="(category, idx) in getCategories()" :key="idx">
+          <div class="pt-4">
+            <div class="rf-category-header mb-3">
+              <h3 class="d-flex align-items-center">
+                <i class="fas fa-shield-alt me-2" style="color: var(--force-blue); font-size: 1.1rem;"></i>
+                <span x-text="category"></span>
+              </h3>
+            </div>
+
+            <div class="category-challenges d-flex flex-column">
+              <div class="challenges-row row">
+                <template x-for="(c, idx) in getChallenges(category)" :key="c.id">
+                  <div class="col-sm-6 col-md-4 col-lg-3 my-2">
+                    <button
+                        class="challenge-button btn w-100 h-100"
+                        :class="[
+                          c.solved_by_me ? 'challenge-solved' : '',
+                          ...c.tags.map((tag) => `tag-${tag.value.replace(/ /g, '-')}`),
+                        ];"
+                        :value="c.id" @click="loadChallenge(c.id)"
+                    >
+
+                      <div class="challenge-inner my-2 w-100 text-center">
+                        <div class="challenge-name fw-bold" x-text="c.name"></div>
+                        <div class="challenge-value font-mono mt-2" x-text="c.value + ' PTS'"></div>
+                      </div>
+                    </button>
+                  </div>
+                </template>
+              </div>
+            </div>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block scripts %}
+  {{ Assets.js("assets/js/challenges.js") }}
+{% endblock %}

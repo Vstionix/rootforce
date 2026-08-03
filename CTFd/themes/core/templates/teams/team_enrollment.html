@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="jumbotron">
+    <div class="container">
+      <h1><i class="fas fa-shield-alt me-2" style="color: #2979ff;"></i>{% trans %}Team{% endtrans %}</h1>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 offset-md-3 text-center mt-4">
+        <div class="rf-card p-4 mb-4">
+          <i class="fas fa-users fa-3x mb-3" style="color: #2979ff; filter: drop-shadow(0 0 10px rgba(41,121,255,0.6));"></i>
+          <p class="h2" style="font-family: 'Rajdhani', sans-serif; font-weight: 700;">
+            {% trans %}Welcome to{% endtrans %} <span style="color: #2979ff;">{{ Configs.ctf_name }}</span>!
+          </p>
+          <p class="text-muted mt-2" style="font-family: 'Rajdhani', sans-serif;">
+            {% trans %}In order to participate you must either join or create a team.{% endtrans %}
+          </p>
+        </div>
+      </div>
+    </div>
+
+    {% if integrations.mlc() %}
+      <div class="row">
+        <div class="col-md-6 offset-md-3 text-center mb-3">
+          <a class="btn btn-primary w-100 py-2" href="{{ url_for('auth.oauth_login') }}">
+            <i class="fas fa-trophy me-2"></i>{% trans %}Play with Official Team{% endtrans %}
+          </a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="mt-2 col-md-3 offset-md-3 text-center">
+          <a class="btn btn-outline-info w-100 py-2" href="{{ url_for('teams.join') }}">
+            <i class="fas fa-sign-in-alt me-2"></i>{% trans %}Join Unofficial Team{% endtrans %}
+          </a>
+        </div>
+        <div class="mt-2 col-md-3 text-center">
+          <a class="btn btn-outline-info w-100 py-2" href="{{ url_for('teams.new') }}">
+            <i class="fas fa-plus-circle me-2"></i>{% trans %}Create Unofficial Team{% endtrans %}
+          </a>
+        </div>
+      </div>
+    {% else %}
+      <div class="row">
+        <div class="mt-2 col-sm-4 col-md-3 offset-sm-2 offset-md-3 text-center">
+          <a class="btn btn-primary w-100 py-2" href="{{ url_for('teams.join') }}">
+            <i class="fas fa-sign-in-alt me-2"></i>{% trans %}Join Team{% endtrans %}
+          </a>
+        </div>
+        <div class="mt-2 col-sm-4 col-md-3 text-center">
+          <a class="btn btn-primary w-100 py-2" href="{{ url_for('teams.new') }}">
+            <i class="fas fa-plus-circle me-2"></i>{% trans %}Create Team{% endtrans %}
+          </a>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}

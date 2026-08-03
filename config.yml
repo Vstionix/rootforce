@@ -1,0 +1,7 @@
+tunnel: 934f43cb-8c86-4baa-b6b9-6577f6f29309
+credentials-file: C:\Users\BARGAVAN V L\.cloudflared\934f43cb-8c86-4baa-b6b9-6577f6f29309.json
+
+ingress:
+  - hostname: rf.vstion.xyz
+    service: http://localhost:8000
+  - service: http_status:404

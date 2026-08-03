@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="rf-auth-wrapper">
+    <div class="rf-auth-card">
+
+      <div class="text-center mb-4">
+        {% if Configs.ctf_logo %}
+          <img src="{{ url_for('views.files', path=Configs.ctf_logo) }}" alt="RootForce" height="60" class="mb-3">
+        {% endif %}
+        <h2 class="mb-1" style="font-size: 1.8rem;"><span class="brand-root">ROOT</span><span class="brand-force">FORCE</span></h2>
+        <p class="text-muted small font-mono m-0">
+          <i class="fas fa-shield-alt me-1 text-primary"></i>COMPETITION PORTAL
+        </p>
+      </div>
+
+      {% include "components/errors.html" %}
+
+      {% if integrations.mlc() %}
+        <a class="btn btn-secondary btn-lg btn-block w-100 mb-3" href="{{ url_for('auth.oauth_login') }}">
+          Login with Major League Cyber
+        </a>
+        <hr>
+      {% endif %}
+
+      {% with form = Forms.auth.LoginForm() %}
+        <form method="post" accept-charset="utf-8">
+          <div class="mb-3">
+            <label class="form-label text-white fw-bold mb-1">
+              {{ form.name.label.text }} <span class="text-danger">*</span>
+            </label>
+            {{ form.name(class="form-control", value=name, autocomplete="username email", placeholder="Username or email") }}
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label text-white fw-bold mb-1">
+              {{ form.password.label.text }} <span class="text-danger">*</span>
+            </label>
+            {{ form.password(class="form-control", value=password, autocomplete="current-password", placeholder="Password") }}
+          </div>
+
+          <div class="row pt-3 align-items-center">
+            <div class="col-6 col-md-7">
+              <a class="align-middle small text-muted text-decoration-none" href="{{ url_for('auth.reset_password') }}">
+                <i class="fas fa-key me-1"></i>Forgot password?
+              </a>
+            </div>
+
+            <div class="col-6 col-md-5">
+              {{ form.submit(class="btn btn-primary w-100") }}
+            </div>
+          </div>
+
+          {{ form.nonce() }}
+        </form>
+      {% endwith %}
+
+      {% if registration_visible() %}
+        <div class="text-center mt-4 pt-3 border-top border-secondary">
+          <span class="text-muted small me-2">New competitor?</span>
+          <a href="{{ url_for('auth.register') }}" class="text-info fw-bold text-decoration-none small">
+            Create Account <i class="fas fa-arrow-right ms-1"></i>
+          </a>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}

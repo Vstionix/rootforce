@@ -1,0 +1,357 @@
+/* ==========================================================================
+   ROOTFORCE OFFICIAL BRAND DESIGN SYSTEM
+   Matches RootForce Shield Logo (Metallic Chrome Silver + Electric Azure Blue)
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Rajdhani:wght@600;700;800&family=JetBrains+Mono:wght@500;600&display=swap');
+
+:root {
+  --bg: #06080e;
+  --surface-secondary: #0a0e19;
+  --surface: rgba(11, 16, 29, 0.85);
+  --surface-card: rgba(15, 22, 38, 0.8);
+  --surface-raised: rgba(22, 32, 54, 0.9);
+  --root-silver: #e2e8f0;
+  --force-blue: #0099ff;
+  --azure-bright: #00c8ff;
+  --azure-dim: rgba(0, 153, 255, 0.12);
+  --border: rgba(0, 153, 255, 0.22);
+  --border-active: #0099ff;
+  --glow-azure: 0 10px 32px rgba(0, 153, 255, 0.25);
+  --solved-emerald: #10b981;
+  --solved-dim: rgba(16, 185, 129, 0.12);
+  --glow-solved: 0 10px 32px rgba(16, 185, 129, 0.25);
+  --text: #f8fafc;
+  --text-muted: #94a3b8;
+  --font-heading: 'Rajdhani', sans-serif;
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html {
+  background-color: var(--bg) !important;
+  color: var(--text) !important;
+  font-family: var(--font-sans) !important;
+}
+
+body {
+  background-color: var(--bg) !important;
+  color: var(--text) !important;
+  font-family: var(--font-sans) !important;
+  min-height: 100vh;
+}
+
+h1, h2, h3, h4, h5, h6, .navbar-brand {
+  font-family: var(--font-heading) !important;
+  font-weight: 700 !important;
+  color: #ffffff !important;
+  letter-spacing: 0.5px;
+}
+
+h1 {
+  font-size: 2.2rem !important;
+  font-weight: 800 !important;
+  text-transform: uppercase;
+}
+
+/* Glass Navbar */
+.navbar, nav.fixed-top {
+  background: rgba(6, 8, 14, 0.92) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border-bottom: 1px solid var(--border) !important;
+  padding: 0.75rem 1.5rem !important;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.6) !important;
+}
+
+.navbar-brand {
+  font-size: 1.3rem !important;
+  font-weight: 800 !important;
+  letter-spacing: 1px !important;
+}
+
+.brand-root {
+  color: var(--root-silver) !important;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+}
+
+.brand-force {
+  color: var(--force-blue) !important;
+  text-shadow: 0 0 12px rgba(0, 153, 255, 0.6);
+}
+
+.nav-link {
+  color: var(--text-muted) !important;
+  font-family: var(--font-heading) !important;
+  font-weight: 600 !important;
+  font-size: 1.05rem !important;
+  letter-spacing: 0.5px !important;
+  padding: 0.4rem 0.9rem !important;
+  border-radius: 6px !important;
+  transition: all 0.2s var(--ease) !important;
+}
+
+.nav-link:hover {
+  color: var(--azure-bright) !important;
+  background: rgba(0, 153, 255, 0.08) !important;
+  text-shadow: 0 0 8px rgba(0, 153, 255, 0.5) !important;
+}
+
+.nav-link.active {
+  color: #ffffff !important;
+  background: rgba(0, 153, 255, 0.16) !important;
+  border-bottom: 2px solid var(--force-blue) !important;
+}
+
+/* Live Status Badge */
+.rf-live-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--solved-emerald);
+  background: var(--solved-dim);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  padding: 2px 9px;
+  border-radius: 12px;
+}
+
+.rf-live-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--solved-emerald);
+  box-shadow: 0 0 8px var(--solved-emerald);
+  animation: rf-pulse 2s infinite ease-in-out;
+}
+
+@keyframes rf-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.35; transform: scale(0.75); }
+}
+
+/* Hero Section */
+.jumbotron {
+  background: linear-gradient(180deg, rgba(0, 153, 255, 0.08) 0%, transparent 100%) !important;
+  border-bottom: 1px solid var(--border) !important;
+  padding: 2.5rem 0 1.5rem 0 !important;
+  margin-bottom: 2rem !important;
+}
+
+/* Category Banners */
+.rf-category-header, .category-header {
+  border-left: 4px solid var(--root-silver) !important;
+  padding-left: 12px !important;
+  margin-bottom: 1.25rem !important;
+  background: linear-gradient(90deg, rgba(0, 153, 255, 0.08) 0%, transparent 100%) !important;
+  border-radius: 0 6px 6px 0 !important;
+  padding-top: 6px !important;
+  padding-bottom: 6px !important;
+}
+
+.rf-category-header h3, .category-header h3 {
+  font-family: var(--font-heading) !important;
+  font-weight: 700 !important;
+  color: #ffffff !important;
+  margin: 0 !important;
+  text-transform: uppercase;
+}
+
+/* Challenge Cards Grid */
+.challenge-button, .btn-challenge {
+  width: 100% !important;
+  min-height: 105px !important;
+  background: var(--surface-card) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 10px !important;
+  color: var(--text) !important;
+  padding: 1.1rem !important;
+  transition: all 0.25s var(--ease) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+.challenge-button:hover {
+  border-color: var(--border-active) !important;
+  background: var(--surface-raised) !important;
+  transform: translateY(-4px) !important;
+  box-shadow: var(--glow-azure) !important;
+}
+
+.challenge-button .challenge-name {
+  font-family: var(--font-sans) !important;
+  font-size: 1.15rem !important;
+  font-weight: 700 !important;
+  color: #ffffff !important;
+  margin-bottom: 0.35rem !important;
+}
+
+.challenge-button .challenge-value {
+  font-family: var(--font-mono) !important;
+  font-size: 0.85rem !important;
+  color: var(--azure-bright) !important;
+  background: rgba(0, 153, 255, 0.12) !important;
+  border: 1px solid rgba(0, 153, 255, 0.35) !important;
+  padding: 3px 12px !important;
+  border-radius: 12px !important;
+}
+
+.challenge-button.challenge-solved, .challenge-button.solved-challenge {
+  border-color: rgba(16, 185, 129, 0.5) !important;
+  background: var(--solved-dim) !important;
+  box-shadow: var(--glow-solved) !important;
+}
+
+.challenge-button.challenge-solved .challenge-value {
+  color: var(--solved-emerald) !important;
+  background: rgba(16, 185, 129, 0.18) !important;
+  border-color: rgba(16, 185, 129, 0.4) !important;
+}
+
+/* Buttons */
+.btn-primary {
+  background: linear-gradient(135deg, var(--force-blue) 0%, #0066cc 100%) !important;
+  border: none !important;
+  color: #ffffff !important;
+  font-family: var(--font-heading) !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.5px !important;
+  border-radius: 6px !important;
+  box-shadow: 0 4px 16px rgba(0, 153, 255, 0.35) !important;
+  transition: all 0.2s var(--ease) !important;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, var(--azure-bright) 0%, var(--force-blue) 100%) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 22px rgba(0, 153, 255, 0.5) !important;
+}
+
+.btn-outline-info {
+  border: 1px solid var(--force-blue) !important;
+  color: var(--azure-bright) !important;
+  font-family: var(--font-heading) !important;
+  font-weight: 700 !important;
+  background: transparent !important;
+}
+
+.btn-outline-info:hover {
+  background: rgba(0, 153, 255, 0.15) !important;
+  color: #ffffff !important;
+  box-shadow: 0 0 16px rgba(0, 153, 255, 0.3) !important;
+}
+
+/* Modals & Forms */
+.card, .modal-content {
+  background: rgba(11, 16, 29, 0.95) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.6) !important;
+}
+
+.modal-header {
+  border-bottom: 1px solid var(--border) !important;
+  background: rgba(22, 32, 54, 0.8) !important;
+}
+
+.form-control, input[type="text"], input[type="password"], input[type="email"] {
+  background: rgba(6, 9, 16, 0.85) !important;
+  border: 1px solid var(--border) !important;
+  color: #ffffff !important;
+  font-family: var(--font-mono) !important;
+  border-radius: 6px !important;
+}
+
+.form-control:focus, input:focus {
+  border-color: var(--force-blue) !important;
+  box-shadow: 0 0 14px rgba(0, 153, 255, 0.35) !important;
+}
+
+/* Scoreboard */
+.table {
+  color: var(--text) !important;
+  border-color: var(--border) !important;
+}
+
+.table th {
+  background: rgba(22, 32, 54, 0.8) !important;
+  color: var(--root-silver) !important;
+  font-family: var(--font-heading) !important;
+  font-size: 0.85rem !important;
+  letter-spacing: 1px !important;
+  text-transform: uppercase !important;
+  border-bottom: 1px solid var(--border) !important;
+}
+
+.table tbody tr:hover td {
+  background: rgba(0, 153, 255, 0.06) !important;
+}
+
+.rank-top-1 { color: #f59e0b !important; font-weight: 800; text-shadow: 0 0 10px rgba(245, 158, 11, 0.5); }
+.rank-top-2 { color: #e2e8f0 !important; font-weight: 800; text-shadow: 0 0 10px rgba(226, 232, 240, 0.4); }
+.rank-top-3 { color: #d97706 !important; font-weight: 800; text-shadow: 0 0 10px rgba(217, 119, 6, 0.4); }
+
+/* Podium Cards Showcase */
+.podium-card {
+  background: var(--surface-card) !important;
+  backdrop-filter: blur(16px) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 14px !important;
+  padding: 1.5rem 1rem !important;
+  text-align: center !important;
+  transition: all 0.25s var(--ease) !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.podium-card:hover {
+  transform: translateY(-5px) !important;
+}
+
+.podium-1 {
+  border-color: rgba(245, 158, 11, 0.6) !important;
+  background: linear-gradient(180deg, rgba(245, 158, 11, 0.12) 0%, rgba(15, 22, 38, 0.9) 100%) !important;
+  box-shadow: 0 12px 35px rgba(245, 158, 11, 0.25) !important;
+}
+
+.podium-2 {
+  border-color: rgba(226, 232, 240, 0.5) !important;
+  background: linear-gradient(180deg, rgba(226, 232, 240, 0.08) 0%, rgba(15, 22, 38, 0.9) 100%) !important;
+  box-shadow: 0 10px 30px rgba(226, 232, 240, 0.2) !important;
+}
+
+.podium-3 {
+  border-color: rgba(217, 119, 6, 0.5) !important;
+  background: linear-gradient(180deg, rgba(217, 119, 6, 0.08) 0%, rgba(15, 22, 38, 0.9) 100%) !important;
+  box-shadow: 0 10px 30px rgba(217, 119, 6, 0.2) !important;
+}
+
+/* Shake Error */
+.rf-shake {
+  animation: rf-shake-anim 0.35s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+@keyframes rf-shake-anim {
+  10%, 90% { transform: translate3d(-2px, 0, 0); }
+  20%, 80% { transform: translate3d(4px, 0, 0); }
+  30%, 50%, 70% { transform: translate3d(-6px, 0, 0); }
+  40%, 60% { transform: translate3d(6px, 0, 0); }
+}
+
+/* Footer */
+footer.footer {
+  background: var(--surface-secondary) !important;
+  border-top: 1px solid var(--border) !important;
+  padding: 1.5rem 0 !important;
+  color: var(--text-muted) !important;
+  margin-top: 3.5rem !important;
+}

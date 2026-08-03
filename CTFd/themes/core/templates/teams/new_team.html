@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="jumbotron">
+    <div class="container">
+      <h1><i class="fas fa-users me-2" style="color: #2979ff;"></i>{% trans %}Create Team{% endtrans %}</h1>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <div class="rf-card p-4 mt-4">
+          {% include "components/errors.html" %}
+
+          {% with form = Forms.teams.TeamRegisterForm() %}
+            {% from "macros/forms.html" import render_extra_fields %}
+            <form method="POST">
+              <div class="mb-3">
+                <b>{{ form.name.label(class="form-label") }}</b>
+                {{ form.name(class="form-control", placeholder="Enter team name") }}
+              </div>
+              <div class="mb-3">
+                <b>{{ form.password.label(class="form-label") }}</b>
+                {{ form.password(class="form-control", placeholder="Set a team password") }}
+              </div>
+
+              {{ render_extra_fields(form.extra) }}
+
+              <div class="row mt-3">
+                <div class="col-md-12">
+                  <p class="text-muted" style="font-family: 'Rajdhani', sans-serif;">
+                    <i class="fas fa-info-circle me-1" style="color: #5b97ff;"></i>
+                    After creating your team, share the team name and password with your teammates so they can join your team.
+                  </p>
+                  {{ form.submit(class="btn btn-success float-end px-4") }}
+                </div>
+              </div>
+              {{ form.nonce() }}
+            </form>
+          {% endwith %}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

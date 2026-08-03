@@ -1,0 +1,1 @@
+/* Standard CTFd Background Script */

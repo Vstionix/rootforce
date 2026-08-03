@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="rf-auth-wrapper">
+    <div class="rf-auth-card" style="max-width: 500px;">
+
+      <div class="text-center mb-4">
+        {% if Configs.ctf_logo %}
+          <img src="{{ url_for('views.files', path=Configs.ctf_logo) }}" alt="RootForce" height="60" class="mb-3">
+        {% endif %}
+        <h2 class="mb-1" style="font-size: 1.8rem;">JOIN <span class="brand-root">ROOT</span><span class="brand-force">FORCE</span></h2>
+        <p class="text-muted small font-mono m-0">
+          <i class="fas fa-user-plus me-1 text-primary"></i>COMPETITOR REGISTRATION
+        </p>
+      </div>
+
+      {% include "components/errors.html" %}
+
+      {% if integrations.mlc() %}
+        <a class="btn btn-secondary btn-lg btn-block w-100 mb-3" href="{{ url_for('auth.oauth_login') }}">
+          Register with Major League Cyber
+        </a>
+        <hr>
+      {% endif %}
+
+      {% with form = Forms.auth.RegistrationForm() %}
+        {% from "macros/forms.html" import render_extra_fields %}
+
+        <form method="post" accept-charset="utf-8" role="form">
+
+          <div class="mb-3">
+            <label class="form-label text-white fw-bold mb-1">
+              {{ form.name.label.text }} <span class="text-danger">*</span>
+            </label>
+            {{ form.name(class="form-control", value=name, autocomplete="username", placeholder="Choose handle") }}
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label text-white fw-bold mb-1">
+              {{ form.email.label.text }} <span class="text-danger">*</span>
+            </label>
+            {{ form.email(class="form-control", value=email, autocomplete="email", placeholder="your@email.com") }}
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label text-white fw-bold mb-1">
+              {{ form.password.label.text }} <span class="text-danger">*</span>
+            </label>
+            {{ form.password(class="form-control", value=password, autocomplete="new-password", placeholder="Strong password") }}
+          </div>
+
+          {{ form.nonce() }}
+          {{ render_extra_fields(form.extra) }}
+
+          <div class="pt-3">
+            {{ form.submit(class="btn btn-primary w-100 py-2") }}
+          </div>
+
+          {% if Configs.tos_or_privacy %}
+            <div class="pt-3 text-center">
+              <small class="text-muted">
+                {% trans trimmed privacy_link=Configs.privacy_link, tos_link=Configs.tos_link %}
+                By registering, you agree to the
+                <a href="{{ privacy_link }}" target="_blank" class="text-info">privacy policy</a>
+                and <a href="{{ tos_link }}" target="_blank" class="text-info">terms of service</a>
+                {% endtrans %}
+              </small>
+            </div>
+          {% endif %}
+        </form>
+      {% endwith %}
+
+      <div class="text-center mt-4 pt-3 border-top border-secondary">
+        <span class="text-muted small me-2">Already registered?</span>
+        <a href="{{ url_for('auth.login') }}" class="text-info fw-bold text-decoration-none small">
+          Sign In <i class="fas fa-sign-in-alt ms-1"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+{% endblock %}

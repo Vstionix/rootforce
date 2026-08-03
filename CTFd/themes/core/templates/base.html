@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{{ title or Configs.ctf_name }}</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="{{ Configs.ctf_small_icon }}" type="image/x-icon">
+
+  <!-- Google Fonts: Inter, Rajdhani, JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+
+  {{ meta | safe }}
+
+  {% block stylesheets %}
+    {{ Assets.css("assets/scss/main.scss") }}
+    <link rel="stylesheet" href="{{ url_for('views.themes', path='css/custom.css') }}?v=4.0">
+    <link rel="stylesheet" href="{{ url_for('views.themes', path='css/theme-revamp.css') }}?v=4.0">
+  {% endblock %}
+
+  <style id="rootforce-inlined">
+    :root {
+      --bg: #06080e;
+      --surface-secondary: #0a0e19;
+      --surface: rgba(11, 16, 29, 0.85);
+      --surface-card: rgba(15, 22, 38, 0.8);
+      --surface-raised: rgba(22, 32, 54, 0.9);
+      --root-silver: #e2e8f0;
+      --force-blue: #0099ff;
+      --azure-bright: #00c8ff;
+      --azure-dim: rgba(0, 153, 255, 0.12);
+      --border: rgba(0, 153, 255, 0.22);
+      --border-active: #0099ff;
+      --glow-azure: 0 10px 32px rgba(0, 153, 255, 0.25);
+      --solved-emerald: #10b981;
+      --solved-dim: rgba(16, 185, 129, 0.12);
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --font-heading: 'Rajdhani', sans-serif;
+      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    html, body {
+      background-color: var(--bg) !important;
+      color: var(--text) !important;
+      font-family: var(--font-sans) !important;
+    }
+
+    h1, h2, h3, h4, h5, h6, .navbar-brand {
+      font-family: var(--font-heading) !important;
+      font-weight: 700 !important;
+      color: #ffffff !important;
+      letter-spacing: 0.5px;
+    }
+
+    h1 {
+      font-size: 2.2rem !important;
+      font-weight: 800 !important;
+      text-transform: uppercase;
+    }
+
+    .navbar {
+      background: rgba(6, 8, 14, 0.92) !important;
+      backdrop-filter: blur(16px) !important;
+      -webkit-backdrop-filter: blur(16px) !important;
+      border-bottom: 1px solid var(--border) !important;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.6) !important;
+    }
+
+    .brand-root {
+      color: var(--root-silver) !important;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+    }
+
+    .brand-force {
+      color: var(--force-blue) !important;
+      text-shadow: 0 0 12px rgba(0, 153, 255, 0.6);
+    }
+
+    .nav-link {
+      color: var(--text-muted) !important;
+      font-family: var(--font-heading) !important;
+      font-weight: 600 !important;
+      font-size: 1.05rem !important;
+    }
+
+    .nav-link:hover {
+      color: var(--azure-bright) !important;
+      background: rgba(0, 153, 255, 0.08) !important;
+    }
+
+    .nav-link.active {
+      color: #ffffff !important;
+      background: rgba(0, 153, 255, 0.16) !important;
+      border-bottom: 2px solid var(--force-blue) !important;
+    }
+
+    .jumbotron {
+      background: linear-gradient(180deg, rgba(0, 153, 255, 0.08) 0%, transparent 100%) !important;
+      border-bottom: 1px solid var(--border) !important;
+    }
+
+    .rf-category-header, .category-header {
+      border-left: 4px solid var(--root-silver) !important;
+      padding-left: 12px !important;
+      background: linear-gradient(90deg, rgba(0, 153, 255, 0.08) 0%, transparent 100%) !important;
+    }
+
+    .rf-category-header h3, .category-header h3 {
+      font-family: var(--font-heading) !important;
+      font-weight: 700 !important;
+      color: #ffffff !important;
+      margin: 0 !important;
+      text-transform: uppercase;
+    }
+
+    .challenge-button, .btn-challenge {
+      background: var(--surface-card) !important;
+      backdrop-filter: blur(12px) !important;
+      -webkit-backdrop-filter: blur(12px) !important;
+      border: 1px solid var(--border) !important;
+      border-radius: 10px !important;
+      color: var(--text) !important;
+      padding: 1.1rem !important;
+      transition: all 0.25s ease !important;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4) !important;
+    }
+
+    .challenge-button:hover {
+      border-color: var(--border-active) !important;
+      background: var(--surface-raised) !important;
+      transform: translateY(-4px) !important;
+      box-shadow: var(--glow-azure) !important;
+    }
+
+    .challenge-button.solved-challenge, .challenge-button.challenge-solved {
+      border-color: rgba(16, 185, 129, 0.5) !important;
+      background: var(--solved-dim) !important;
+      box-shadow: var(--glow-solved) !important;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--force-blue) 0%, #0066cc 100%) !important;
+      border: none !important;
+      color: #ffffff !important;
+      font-family: var(--font-heading) !important;
+      font-weight: 700 !important;
+      box-shadow: 0 4px 16px rgba(0, 153, 255, 0.35) !important;
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, var(--azure-bright) 0%, var(--force-blue) 100%) !important;
+      transform: translateY(-2px) !important;
+    }
+
+    .card, .modal-content {
+      background: rgba(11, 16, 29, 0.95) !important;
+      backdrop-filter: blur(16px) !important;
+      border: 1px solid var(--border) !important;
+      border-radius: 12px !important;
+    }
+
+    .table {
+      color: var(--text) !important;
+      border-color: var(--border) !important;
+    }
+
+    .table th {
+      background: rgba(22, 32, 54, 0.8) !important;
+      color: var(--root-silver) !important;
+      font-family: var(--font-heading) !important;
+    }
+
+    footer.footer {
+      background: var(--surface-secondary) !important;
+      border-top: 1px solid var(--border) !important;
+    }
+  </style>
+
+  {{ Plugins.styles }}
+
+  {{ Assets.js("assets/js/color_mode_switcher.js", type=None) }}
+
+  <script type="text/javascript">
+      window.init = {
+          'urlRoot': "{{ request.script_root }}",
+          'csrfNonce': "{{ Session.nonce }}",
+          'userMode': "{{ Configs.user_mode }}",
+          'userId': {{ Session.id }},
+          'userName': {{ User.name | tojson }},
+          'userEmail': {{ User.email | tojson }},
+          'userVerified': {{ User.verified | tojson }},
+          'teamId': {{ Team.id | tojson }},
+          'teamName': {{ Team.name | tojson }},
+          'start': {{ Configs.start | tojson }},
+          'end': {{ Configs.end | tojson }},
+          'themeSettings': {{ Configs.theme_settings | tojson }},
+          'eventSounds': [
+            "{{ url_for('views.themes', path='sounds/notification.mp3') }}?v=3.0",
+            "{{ url_for('views.themes', path='sounds/notification.webm') }}?v=3.0",
+          ],
+      }
+  </script>
+
+  {{ Configs.theme_header }}
+</head>
+<body>
+{% include "components/navbar.html" %}
+
+<main role="main">
+  {% block content %}
+  {% endblock %}
+</main>
+
+{% include "components/snackbar.html" %}
+
+<footer class="footer">
+  <div class="container text-center">
+    <a href="https://ctfd.io" class="text-secondary">
+      <small class="text-muted">
+        Powered by CTFd
+      </small>
+    </a>
+  </div>
+</footer>
+
+{% include "components/notifications.html" %}
+
+{% block scripts %}
+  {{ Assets.js("assets/js/page.js") }}
+{% endblock %}
+
+  <script type="text/javascript">
+    (function() {
+      var soundUrl = "{{ url_for('views.themes', path='sounds/notification.mp3') }}?v=3.0";
+      var audioCtx = null;
+      var soundBuffer = null;
+
+      // Initialize Web Audio API PCM Buffer Engine
+      function initWebAudio() {
+        try {
+          var AudioCtxClass = window.AudioContext || window.webkitAudioContext;
+          if (AudioCtxClass) {
+            audioCtx = new AudioCtxClass();
+            fetch(soundUrl)
+              .then(function(res) { return res.arrayBuffer(); })
+              .then(function(buf) { return audioCtx.decodeAudioData(buf); })
+              .then(function(decoded) {
+                soundBuffer = decoded;
+                console.log("[RootForce Sound Engine] Web Audio PCM Buffer ready.");
+              }).catch(function(err) {});
+          }
+        } catch(e) {}
+      }
+      initWebAudio();
+
+      window.DB_ACTIVE_NOTIFICATION_SOUND = "{{ get_config('active_notification_sound', 'notification.mp3') }}";
+
+      window.playNotificationSound = function(overrideSound) {
+        var soundFile = overrideSound || window.DB_ACTIVE_NOTIFICATION_SOUND || localStorage.getItem("rf_active_sound") || "notification.mp3";
+        var dynamicUrl = "";
+
+        if (soundFile === "custom_uploaded" && localStorage.getItem("rf_custom_audio_data")) {
+          dynamicUrl = localStorage.getItem("rf_custom_audio_data");
+        } else {
+          dynamicUrl = "{{ url_for('views.themes', path='sounds/') }}" + soundFile + "?v=3.0";
+        }
+
+        var played = false;
+
+        try {
+          var AudioCtxClass = window.AudioContext || window.webkitAudioContext;
+          if (AudioCtxClass && dynamicUrl.indexOf("data:audio") === -1) {
+            var ctx = new AudioCtxClass();
+            fetch(dynamicUrl)
+              .then(function(res) { return res.arrayBuffer(); })
+              .then(function(buf) { return ctx.decodeAudioData(buf); })
+              .then(function(decoded) {
+                var src = ctx.createBufferSource();
+                src.buffer = decoded;
+                src.connect(ctx.destination);
+                src.start(0);
+                played = true;
+                console.log("[RootForce Sound Engine] Web Audio played sound:", soundFile);
+              }).catch(function(err) {});
+          }
+        } catch(e) {}
+
+        try {
+          var a = new Audio(dynamicUrl);
+          a.play().then(function() {
+            console.log("[RootForce Sound Engine] HTML5 Audio played sound:", soundFile);
+          }).catch(function(err) {
+            if (!played) {
+              console.warn("[RootForce Sound Engine] Autoplay pending interaction.", err);
+            }
+          });
+        } catch(e) {}
+      };
+
+      // Auto-resume AudioContext on any interaction or mouse movement
+      var events = ["click", "touchstart", "pointerdown", "mousemove", "keydown", "scroll"];
+      function autoUnlock() {
+        if (audioCtx && audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+        events.forEach(function(evt) {
+          document.removeEventListener(evt, autoUnlock);
+        });
+      }
+      events.forEach(function(evt) {
+        document.addEventListener(evt, autoUnlock, { passive: true });
+      });
+
+      // Channel 1: Intercept fetch() API polling for /api/v1/notifications
+      if (window.fetch) {
+        var origFetch = window.fetch;
+        window.fetch = function() {
+          return origFetch.apply(this, arguments).then(function(res) {
+            if (res.url && res.url.indexOf('/api/v1/notifications') !== -1 && res.ok) {
+              res.clone().json().then(function(data) {
+                if (data && data.success && data.data && data.data.length > 0) {
+                  window.playNotificationSound();
+                }
+              }).catch(function() {});
+            }
+            return res;
+          });
+        };
+      }
+
+      // Channel 2: Intercept XMLHttpRequest polling for /api/v1/notifications
+      var origOpen = XMLHttpRequest.prototype.open;
+      XMLHttpRequest.prototype.open = function(method, url) {
+        if (url && url.indexOf('/api/v1/notifications') !== -1) {
+          this.addEventListener('load', function() {
+            if (this.status >= 200 && this.status < 300) {
+              try {
+                var data = JSON.parse(this.responseText);
+                if (data && data.success && data.data && data.data.length > 0) {
+                  window.playNotificationSound();
+                }
+              } catch(e) {}
+            }
+          });
+        }
+        return origOpen.apply(this, arguments);
+      };
+
+      // Channel 3: Server-Sent Events (SSE) for real-time stream
+      if (window.EventSource) {
+        try {
+          var source = new EventSource("{{ url_for('events.subscribe') }}");
+          source.addEventListener("notification", function(e) {
+            window.playNotificationSound();
+          });
+        } catch(e) {}
+      }
+
+      // Channel 4: DOM MutationObserver for Notification Toasts
+      document.addEventListener("DOMContentLoaded", function() {
+        var toastEl = document.querySelector('.toast, [x-ref="toast"]');
+        if (toastEl) {
+          var observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(m) {
+              if (toastEl.classList.contains('show') || toastEl.style.display === 'block') {
+                window.playNotificationSound();
+              }
+            });
+          });
+          observer.observe(toastEl, { attributes: true, attributeFilter: ['class', 'style'] });
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
